@@ -1,0 +1,12 @@
+
+@{ ViewData["Title"] = "Dashboard"; var planned = (int)(ViewData["PlannedToday"] ?? 0); var taken = (int)(ViewData["TakenToday"] ?? 0); var active = (int)(ViewData["ActiveMedications"] ?? 0);} 
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">Welcome back!</h2>
+  <a href="/Schedule" class="btn btn-outline-primary">Print Schedule</a>
+</div>
+<div class="card mb-3"><div class="card-header">Today's Schedule</div><div class="card-body">Open the Today page to view and mark doses.</div></div>
+<div class="row g-3">
+  <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Active Medications</div><div class="fs-3 fw-bold">@active</div></div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Today's Doses</div><div class="fs-3 fw-bold">@planned</div></div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Taken</div><div class="fs-3 fw-bold text-success">@taken</div></div></div></div>
+</div>

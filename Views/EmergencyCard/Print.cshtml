@@ -1,0 +1,31 @@
+
+@model MedTrackerScreensMVC.Models.EmergencyCard
+@{ Layout = null; }
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Emergency Card</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 24px; }
+    .card { border:1px solid #e5e7eb; border-radius:12px; padding:16px; }
+    h1 { font-size: 20px; margin:0 0 12px 0; }
+    dl { display:grid; grid-template-columns: 180px 1fr; row-gap:8px; column-gap:16px; }
+    dt { font-weight:bold; }
+  </style>
+</head>
+<body>
+  <div class="no-print" style="margin-bottom:12px"><button onclick="window.print()">Print</button></div>
+  <div class="card">
+    <h1>Emergency Medical Card</h1>
+    <dl>
+      <dt>Date of Birth</dt><dd>@Model.DateOfBirth</dd>
+      <dt>Last 4 of SSN</dt><dd>@Model.Last4SSN</dd>
+      <dt>Blood Type</dt><dd>@Model.BloodType?.Name</dd>
+      <dt>Insurance Provider</dt><dd>@Model.InsuranceProvider</dd>
+      <dt>Policy Number</dt><dd>@Model.InsurancePolicyNumber</dd>
+    </dl>
+  </div>
+</body>
+</html>

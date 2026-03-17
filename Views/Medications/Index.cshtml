@@ -1,0 +1,28 @@
+
+@model IEnumerable<MedTrackerScreensMVC.Models.Medication>
+@{ ViewData["Title"] = "My Medications"; var today = (IDictionary<int,string>) (ViewBag.TodayStatus ?? new Dictionary<int,string>()); }
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">My Medications</h2>
+  <a class="btn btn-primary" href="/Medications/Create">+ Add Medication</a>
+</div>
+<div class="list-group">
+  @foreach (var m in Model)
+  {
+    var status = today.ContainsKey(m.Id) ? today[m.Id] : null;
+    <div class="list-group-item d-flex justify-content-between align-items-start">
+      <div>
+        <div class="fw-semibold">@m.Name
+          @if (status == "Taken") { <span class="badge bg-success ms-2">Taken today</span> }
+          else if (status == "Due") { <span class="badge bg-warning text-dark ms-2">Due today</span> }
+        </div>
+        <div class="text-muted small">@m.DosageDisplay</div>
+        <div class="text-muted small">Frequency: @m.Frequency · Time: @m.TimeOfDay</div>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-sm btn-outline-secondary" href="/Medications/Details/@m.Id">View</a>
+        <a class="btn btn-sm btn-outline-primary" href="/Medications/Edit/@m.Id">Edit</a>
+        <a class="btn btn-sm btn-outline-danger" href="/Medications/Delete/@m.Id">Delete</a>
+      </div>
+    </div>
+  }
+</div>
