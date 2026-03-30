@@ -29,6 +29,12 @@ jobs:
       - name: Publish
         run: dotnet publish MedTracker.sln -c Release -o ./publish
 
+      - name: Install EF Tools
+        run: dotnet tool install --global dotnet-ef
+
+      - name: Add dotnet tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
       - name: Apply Migrations
         run: dotnet ef database update --project MedTracker.sln
         env:
