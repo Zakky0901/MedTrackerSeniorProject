@@ -3,32 +3,35 @@ name: Build and Deploy to Azure
 on:
   push:
     branches:
-      - main
+      - master
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.2.2
 
       - name: Set up .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v4.3.1
         with:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore MedTracker.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build MedTracker.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish MedTracker.sln -c Release -o ./publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: medtracker   # ← replace with your exact Azure app name
+          app-name: YOUR_APP_NAME   # ← replace with your Azure app name
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
           package: ./publish
