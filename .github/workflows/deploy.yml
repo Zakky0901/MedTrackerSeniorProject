@@ -29,6 +29,11 @@ jobs:
       - name: Publish
         run: dotnet publish MedTracker.sln -c Release -o ./publish
 
+      - name: Apply Migrations
+        run: dotnet ef database update --project MedTracker.sln
+        env:
+          ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONNECTION_STRING }}
+
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
