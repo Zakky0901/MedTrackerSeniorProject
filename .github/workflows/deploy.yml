@@ -21,13 +21,13 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore MedTracker.sln
+        run: dotnet restore MedTrackerScreensMVC-ssms2022-net10-syncA/MedTracker.sln
 
       - name: Build
-        run: dotnet build MedTracker.sln --configuration Release --no-restore
+        run: dotnet build MedTrackerScreensMVC-ssms2022-net10-syncA/MedTracker.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish MedTracker.sln -c Release -o ./publish
+        run: dotnet publish MedTrackerScreensMVC-ssms2022-net10-syncA/MedTracker.sln -c Release -o ./publish
 
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
