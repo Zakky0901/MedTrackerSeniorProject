@@ -1,8 +1,9 @@
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MedTrackerScreensMVC.Data;
 using MedTrackerScreensMVC.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace MedTrackerScreensMVC.Controllers
 {
@@ -12,7 +13,8 @@ namespace MedTrackerScreensMVC.Controllers
         public ScheduleController(AppDbContext db) { _db = db; }
         public async Task<IActionResult> Index(DateOnly? date)
         {
-            await SyncService.UpsertTodayFromMedications(_db, HttpContext.RequestAborted);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
             var target = date ?? DateOnly.FromDateTime(DateTime.Today);
             var doses = await _db.Doses.Include(d=>d.Medication).Where(d=>d.Date==target).OrderBy(d=>d.Time).ToListAsync();
             ViewData["Date"] = target; return View(doses);
