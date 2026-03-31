@@ -35,11 +35,6 @@ jobs:
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-      - name: Apply Migrations
-        run: dotnet ef database update --project MedTrackerMVC.csproj
-        env:
-          ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONNECTION_STRING }}
-
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
