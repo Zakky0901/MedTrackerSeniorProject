@@ -23,23 +23,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 var app = builder.Build();
 
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
-    if (!string.IsNullOrEmpty(connectionString))
-    {
-        try
-        {
-            db.Database.Migrate();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Migration failed: {ex.Message}");
-        }
-    }
-}
 
 if (!app.Environment.IsDevelopment())
 {
