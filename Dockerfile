@@ -19,4 +19,4 @@ ENV ASPNETCORE_ENVIRONMENT Production
 EXPOSE 8080
 WORKDIR /app
 COPY --from=build /app .
-ENTRYPOINT [ "dotnet", "MedTrackerMVC.dll" ]
+ENTRYPOINT [ "dotnet", "MedTrackerScreensMVC.dll" ]
