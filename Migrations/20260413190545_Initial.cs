@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,9 +16,9 @@ namespace MedTrackerScreensMVC.Migrations
                 name: "BloodTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,17 +29,17 @@ namespace MedTrackerScreensMVC.Migrations
                 name: "Medications",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    DosageDisplay = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Frequency = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    TimeOfDay = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: true),
-                    PillsRemaining = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
+                    DosageDisplay = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+                    Frequency = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: true),
+                    TimeOfDay = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: true),
+                    PillsRemaining = table.Column<int>(type: "integer", nullable: false),
                     RefillDate = table.Column<DateOnly>(type: "date", nullable: true),
-                    Notes = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    Notes = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,9 +50,9 @@ namespace MedTrackerScreensMVC.Migrations
                 name: "RelationshipTypes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(60)", maxLength: 60, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,13 +63,13 @@ namespace MedTrackerScreensMVC.Migrations
                 name: "EmergencyCards",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DateOfBirth = table.Column<DateOnly>(type: "date", nullable: true),
-                    Last4SSN = table.Column<string>(type: "nvarchar(4)", maxLength: 4, nullable: true),
-                    BloodTypeId = table.Column<int>(type: "int", nullable: true),
-                    InsuranceProvider = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    InsurancePolicyNumber = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: true)
+                    Last4SSN = table.Column<string>(type: "character varying(4)", maxLength: 4, nullable: true),
+                    BloodTypeId = table.Column<int>(type: "integer", nullable: true),
+                    InsuranceProvider = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: true),
+                    InsurancePolicyNumber = table.Column<string>(type: "character varying(80)", maxLength: 80, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -84,13 +85,13 @@ namespace MedTrackerScreensMVC.Migrations
                 name: "Doses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    MedicationId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    MedicationId = table.Column<int>(type: "integer", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
-                    Time = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
-                    Taken = table.Column<bool>(type: "bit", nullable: false),
-                    TakenAt = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    Time = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: false),
+                    Taken = table.Column<bool>(type: "boolean", nullable: false),
+                    TakenAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -107,12 +108,12 @@ namespace MedTrackerScreensMVC.Migrations
                 name: "AuthorizedUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FullName = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
-                    RelationshipTypeId = table.Column<int>(type: "int", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true),
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FullName = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
+                    RelationshipTypeId = table.Column<int>(type: "integer", nullable: false),
+                    Email = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: true),
+                    Phone = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: true),
                     AddedOn = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
