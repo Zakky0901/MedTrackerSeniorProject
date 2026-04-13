@@ -28,7 +28,7 @@ jobs:
         run: dotnet build MedTrackerScreensMVC.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish MedTrackerScreensMVC.sln -c Release -o ./publish
+        run: dotnet publish -c Release -o ./publish
 
       - name: Install EF Tools
         run: dotnet tool install --global dotnet-ef
