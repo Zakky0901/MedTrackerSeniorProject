@@ -22,13 +22,13 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore MedTrackerScreensMVC.sln
+        run: dotnet restore MedTrackerMVC.sln
 
       - name: Build
-        run: dotnet build MedTrackerScreensMVC.sln --configuration Release --no-restore
+        run: dotnet build MedTrackerMVC.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish MedTrackerScreensMVC.sln -c Release -o ./publish
+        run: dotnet publish MedTrackerMVC.sln -c Release -o ./publish
 
       - name: Install EF Tools
         run: dotnet tool install --global dotnet-ef
