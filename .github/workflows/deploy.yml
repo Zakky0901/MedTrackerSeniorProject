@@ -22,7 +22,7 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore MedtrackerProject/MedTrackerScreensMVC.sln
+        run: dotnet restore MedTrackerScreensMVC.sln
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
