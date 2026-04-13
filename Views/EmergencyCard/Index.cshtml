@@ -1,0 +1,24 @@
+@model MedTrackerScreensMVC.Models.EmergencyCard
+@{ ViewData["Title"] = "Emergency Card"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">Emergency Medical Card</h2>
+  <a class="btn btn-danger" href="/EmergencyCard/Print" target="_blank">Print Card</a>
+</div>
+<div class="alert alert-danger">Important: Keep this card updated and accessible. In an emergency, this information can be critical for EMS responders and medical professionals.</div>
+<div class="card"><div class="card-body">
+  <h5 class="mb-3">Personal Medical Information</h5>
+  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+  <form method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="row">
+      <div class="col-md-6 mb-3"><label class="form-label">Date of Birth</label><input asp-for="DateOfBirth" class="form-control" type="date" /></div>
+      <div class="col-md-6 mb-3"><label class="form-label">Last 4 of SSN</label><input asp-for="Last4SSN" class="form-control" maxlength="4" /></div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 mb-3"><label class="form-label">Blood Type</label><select asp-for="BloodTypeId" class="form-select" asp-items="@(new SelectList(ViewBag.BloodTypes, "Id", "Name"))"></select></div>
+      <div class="col-md-6 mb-3"><label class="form-label">Insurance Provider</label><input asp-for="InsuranceProvider" class="form-control" placeholder="e.g., Blue Cross Blue Shield" /></div>
+    </div>
+    <div class="mb-3"><label class="form-label">Insurance Policy Number</label><input asp-for="InsurancePolicyNumber" class="form-control" placeholder="Policy number" /></div>
+    <div class="d-flex gap-2 mt-2"><button class="btn btn-primary" type="submit">Save</button></div>
+  </form>
+</div></div>

@@ -1,0 +1,25 @@
+
+@model IEnumerable<MedTrackerScreensMVC.Models.AuthorizedUser>
+@{ ViewData["Title"] = "Authorized Users"; }
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="m-0">Authorized Users</h2>
+  <a class="btn btn-primary" href="/AuthorizedUsers/Create">+ Add User</a>
+</div>
+<div class="list-group">
+  @foreach (var u in Model)
+  {
+    <div class="list-group-item d-flex justify-content-between align-items-start">
+      <div>
+        <div class="fw-semibold">@u.FullName</div>
+        <div class="text-muted small">@u.RelationshipType?.Name</div>
+        @if (!string.IsNullOrWhiteSpace(u.Email)) { <div class="text-muted small">@u.Email</div> }
+        @if (!string.IsNullOrWhiteSpace(u.Phone)) { <div class="text-muted small">@u.Phone</div> }
+        <div class="text-muted small">Added @u.AddedOn</div>
+      </div>
+      <div class="d-flex gap-2">
+        <a class="btn btn-sm btn-outline-primary" href="/AuthorizedUsers/Edit/@u.Id">Edit</a>
+        <a class="btn btn-sm btn-outline-danger" href="/AuthorizedUsers/Delete/@u.Id">Delete</a>
+      </div>
+    </div>
+  }
+</div>
