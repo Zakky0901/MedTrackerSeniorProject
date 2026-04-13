@@ -1,4 +1,4 @@
-name: Build and Deploy to Azure
+name: Build and Deploy to Fly
 
 on:
   push:
@@ -25,10 +25,10 @@ jobs:
         run: dotnet restore MedTrackerScreensMVC.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build MedTrackerScreensMVC.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish MedtrackerProject/MedTrackerScreensMVC.sln -c Release -o ./publish
+        run: dotnet publish MedTrackerScreensMVC.sln -c Release -o ./publish
 
       - name: Install EF Tools
         run: dotnet tool install --global dotnet-ef
