@@ -22,23 +22,16 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore MedTracker.sln
+        run: dotnet restore MedTrackerScreensMVC.sln
 
       - name: Build
-        run: dotnet build MedTracker.sln --configuration Release --no-restore
+        run: dotnet build MedTrackerScreensMVC.sln --configuration Release --no-restore
 
       - name: Publish
-        run: dotnet publish MedTracker.sln -c Release -o ./publish
+        run: dotnet publish MedTrackerScreensMVC.sln -c Release -o ./publish
 
       - name: Install EF Tools
         run: dotnet tool install --global dotnet-ef
 
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-
-      - name: Deploy to Azure Web App
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: medtracker   # ← replace with your Azure app name
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: ./publish
