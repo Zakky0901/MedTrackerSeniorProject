@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedTrackerScreensMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260413190545_Initial")]
-    partial class Initial
+    [Migration("20260413221402_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
