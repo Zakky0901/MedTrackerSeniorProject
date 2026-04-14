@@ -28,7 +28,7 @@ namespace MedTrackerScreensMVC.Controllers
                 var target = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
 
                 var doses = await _db.Doses
-                    .Where(d => d.UserId == userId)
+                    .Include(d => d.UserId == userId)
                     .ToListAsync();
 
                 return Content($"SUCCESS: Found {doses.Count} doses for user {userId}");
