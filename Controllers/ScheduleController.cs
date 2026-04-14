@@ -22,7 +22,7 @@ namespace MedTrackerScreensMVC.Controllers
                 throw new Exception("User ID is null");
             }
 
-            await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
+          //  await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
             var target = date ?? DateOnly.FromDateTime(DateTime.Today);
             var doses = await _db.Doses.Include(d=>d.Medication).Where(d=>d.Date==target).Where(d=>d.UserId == userId).OrderBy(d=>d.Time).ToListAsync();
             ViewData["Date"] = target; return View(doses);
