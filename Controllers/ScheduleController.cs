@@ -15,18 +15,29 @@ namespace MedTrackerScreensMVC.Controllers
         public ScheduleController(AppDbContext db) { _db = db; }
         public async Task<IActionResult> Index(DateOnly? date)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-             ?? User.FindFirst("sub")?.Value;
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                throw new Exception("User ID is null");
-            }
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+                             ?? User.FindFirst("sub")?.Value;
 
-          //  await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
-            var target = date ?? DateOnly.FromDateTime(DateTime.Today);
-            var doses = await _db.Doses.Include(d=>d.Medication).Where(d=>d.Date==target).Where(d=>d.UserId == userId).OrderBy(d=>d.Time).ToListAsync();
-            ViewData["Date"] = target; return View(doses);
-        }        
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return Content("ERROR: userId is NULL");
+                }
+
+                var target = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
+
+                var doses = await _db.Doses
+                    .Where(d => d.UserId == userId)
+                    .ToListAsync();
+
+                return Content($"SUCCESS: Found {doses.Count} doses for user {userId}");
+            }
+            catch (Exception ex)
+            {
+                return Content("CRASH: " + ex.ToString());
+            }
+        }
         [HttpPost][ValidateAntiForgeryToken]
         public async Task<IActionResult> MarkTaken(int id)
         {
