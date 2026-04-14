@@ -45,11 +45,10 @@ using (var scope = app.Services.CreateScope())
         Console.WriteLine($"Migration failed: {ex.Message}");
     }
 }
-
-if (!app.Environment.IsDevelopment())
+// if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+   // app.UseExceptionHandler("/Home/Error");
+    // app.UseHsts();
 }
 
 app.UseHttpsRedirection();
