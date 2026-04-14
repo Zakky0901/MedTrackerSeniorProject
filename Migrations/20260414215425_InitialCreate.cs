@@ -111,6 +111,7 @@ namespace MedTrackerScreensMVC.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<string>(type: "text", nullable: false),
                     FullName = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
                     RelationshipTypeId = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: true),
