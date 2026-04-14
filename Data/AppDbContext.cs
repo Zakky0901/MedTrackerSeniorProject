@@ -16,7 +16,10 @@ namespace MedTrackerScreensMVC.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder); 
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Dose>()
+                .Property(d => d.UserId)
+                .HasColumnName("UserId"); 
             modelBuilder.Entity<Dose>()
                 .HasIndex(d => new { d.MedicationId, d.Date, d.Time})  
                 .IsUnique();
@@ -28,9 +31,6 @@ namespace MedTrackerScreensMVC.Data
                 .HasOne(e => e.BloodType)
                 .WithMany()
                 .HasForeignKey(e => e.BloodTypeId);
-            modelBuilder.Entity<Medication>()
-                .ToTable("Medications");
-
         }
     }
 }
