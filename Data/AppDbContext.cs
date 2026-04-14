@@ -24,6 +24,9 @@ namespace MedTrackerScreensMVC.Data
                 .HasOne(a => a.RelationshipType)
                 .WithMany()
                 .HasForeignKey(a => a.RelationshipTypeId);
+            modelBuilder.Entity<AuthorizedUser>()
+                .Property(a => a.UserId)
+                .HasColumnName("UserId");
             modelBuilder.Entity<EmergencyCard>()
                 .HasOne(e => e.BloodType)
                 .WithMany()
