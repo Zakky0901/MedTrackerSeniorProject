@@ -3,8 +3,8 @@ using System;
 using MedTrackerScreensMVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,18 +18,22 @@ namespace MedTrackerScreensMVC.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.AuthorizedUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("AddedOn")
                         .HasColumnType("date")
@@ -37,12 +41,17 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.Property<string>("Email")
                         .HasMaxLength(120)
+<<<<<<< HEAD
                         .HasColumnType("character varying(120)")
                         .HasColumnName("email");
+=======
+                        .HasColumnType("nvarchar(120)");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(120)
+<<<<<<< HEAD
                         .HasColumnType("character varying(120)")
                         .HasColumnName("full_name");
 
@@ -54,6 +63,16 @@ namespace MedTrackerScreensMVC.Migrations
                     b.Property<int>("RelationshipTypeId")
                         .HasColumnType("integer")
                         .HasColumnName("relationship_type_id");
+=======
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<int>("RelationshipTypeId")
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.HasKey("Id")
                         .HasName("pk_authorized_user");
@@ -68,16 +87,24 @@ namespace MedTrackerScreensMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(5)
+<<<<<<< HEAD
                         .HasColumnType("character varying(5)")
                         .HasColumnName("name");
+=======
+                        .HasColumnType("nvarchar(5)");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.HasKey("Id")
                         .HasName("pk_blood_type");
@@ -89,16 +116,21 @@ namespace MedTrackerScreensMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date")
                         .HasColumnName("date");
 
                     b.Property<int>("MedicationId")
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("medication_id");
 
@@ -109,12 +141,25 @@ namespace MedTrackerScreensMVC.Migrations
                     b.Property<DateTime?>("TakenAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("taken_at");
+=======
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Taken")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("TakenAt")
+                        .HasColumnType("datetime2");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.Property<string>("Time")
                         .IsRequired()
                         .HasMaxLength(5)
+<<<<<<< HEAD
                         .HasColumnType("character varying(5)")
                         .HasColumnName("time");
+=======
+                        .HasColumnType("nvarchar(5)");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -135,14 +180,22 @@ namespace MedTrackerScreensMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BloodTypeId")
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("blood_type_id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.Property<DateOnly?>("DateOfBirth")
                         .HasColumnType("date")
@@ -150,6 +203,7 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.Property<string>("InsurancePolicyNumber")
                         .HasMaxLength(80)
+<<<<<<< HEAD
                         .HasColumnType("character varying(80)")
                         .HasColumnName("insurance_policy_number");
 
@@ -162,6 +216,17 @@ namespace MedTrackerScreensMVC.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("character varying(4)")
                         .HasColumnName("last4ssn");
+=======
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("InsuranceProvider")
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Last4SSN")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.HasKey("Id")
                         .HasName("pk_emergency_card");
@@ -176,13 +241,18 @@ namespace MedTrackerScreensMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DosageDisplay")
                         .HasMaxLength(50)
+<<<<<<< HEAD
                         .HasColumnType("character varying(50)")
                         .HasColumnName("dosage_display");
 
@@ -194,10 +264,21 @@ namespace MedTrackerScreensMVC.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean")
                         .HasColumnName("is_active");
+=======
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Frequency")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(120)
+<<<<<<< HEAD
                         .HasColumnType("character varying(120)")
                         .HasColumnName("name");
 
@@ -209,6 +290,16 @@ namespace MedTrackerScreensMVC.Migrations
                     b.Property<int>("PillsRemaining")
                         .HasColumnType("integer")
                         .HasColumnName("pills_remaining");
+=======
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("PillsRemaining")
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.Property<DateOnly?>("RefillDate")
                         .HasColumnType("date")
@@ -216,6 +307,7 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.Property<string>("TimeOfDay")
                         .HasMaxLength(5)
+<<<<<<< HEAD
                         .HasColumnType("character varying(5)")
                         .HasColumnName("time_of_day");
 
@@ -223,6 +315,13 @@ namespace MedTrackerScreensMVC.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("user_id");
+=======
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.HasKey("Id")
                         .HasName("pk_medication");
@@ -234,16 +333,24 @@ namespace MedTrackerScreensMVC.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+<<<<<<< HEAD
                         .HasColumnType("integer")
                         .HasColumnName("id");
+=======
+                        .HasColumnType("int");
+>>>>>>> parent of bc5b6a1 (..)
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(60)
+<<<<<<< HEAD
                         .HasColumnType("character varying(60)")
                         .HasColumnName("name");
+=======
+                        .HasColumnType("nvarchar(60)");
+>>>>>>> parent of bc5b6a1 (..)
 
                     b.HasKey("Id")
                         .HasName("pk_relationship_type");
