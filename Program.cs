@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using EFCore.NamingConventions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,8 +28,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
                 errorCodesToAdd: null);
 
             npgsql.CommandTimeout(180);
-        })
-    .UseSnakeCaseNamingConvention();
+        });
 });
 
 var app = builder.Build();
