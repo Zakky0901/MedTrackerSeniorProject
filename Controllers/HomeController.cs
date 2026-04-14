@@ -7,7 +7,7 @@ using System.Security.Claims;
 
 namespace MedTrackerScreensMVC.Controllers
 {
-    [Authorize] // 🔒 Redirects unauthenticated users to login
+    [Authorize] // Redirects unauthenticated users to login
     public class HomeController : Controller
     {
         private readonly AppDbContext _db;
