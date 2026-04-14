@@ -31,6 +31,9 @@ namespace MedTrackerScreensMVC.Data
                 .HasOne(e => e.BloodType)
                 .WithMany()
                 .HasForeignKey(e => e.BloodTypeId);
+            modelBuilder.Entity<Medication>()
+                .ToTable("Medications");
+
         }
     }
 }
