@@ -4,7 +4,7 @@ namespace MedTrackerScreensMVC.Models
     public class Medication
     {
         public int Id { get; set; }
-        public string UserId { get; set; } = string.Empty; // 👈 Add this
+        public string UserId { get; set; } = string.Empty; 
         [Required, StringLength(120)] public string Name { get; set; } = string.Empty;
         [StringLength(50)] public string? DosageDisplay { get; set; }
         [StringLength(20)] public string? Frequency { get; set; }
