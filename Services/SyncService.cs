@@ -4,17 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedTrackerScreensMVC.Services
 {
-   public static class SyncService
+    public static class SyncService
     {
         public static async Task UpsertTodayFromMedications(AppDbContext db, string userId, CancellationToken ct)
         {
-
-            if (string.IsNullOrEmpty(userId))
-            {
-                return; // prevent crash
-            }
-
-            var today = DateOnly.FromDateTime(DateTime.UtcNow);
+            var today = DateOnly.FromDateTime(DateTime.Today);
 
             var meds = await db.Medications
                 .Where(m => m.IsActive && m.UserId == userId)
@@ -25,7 +19,7 @@ namespace MedTrackerScreensMVC.Services
                 if (string.IsNullOrWhiteSpace(m.TimeOfDay)) continue;
 
                 bool exists = await db.Doses.AnyAsync(
-                    d => d.MedicationId == m.Id && d.Date == today && d.Time == m.TimeOfDay! && d.UserId == userId, ct);
+                    d => d.MedicationId == m.Id && d.Date == today && d.Time == m.TimeOfDay!, ct);
 
                 if (!exists)
                 {
@@ -34,8 +28,7 @@ namespace MedTrackerScreensMVC.Services
                         MedicationId = m.Id,
                         Date = today,
                         Time = m.TimeOfDay!,
-                        Taken = false,
-                        UserId = userId
+                        Taken = false
                     });
                 }
             }
