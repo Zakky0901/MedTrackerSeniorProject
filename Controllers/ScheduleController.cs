@@ -20,6 +20,8 @@ namespace MedTrackerScreensMVC.Controllers
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
                              ?? User.FindFirst("sub")?.Value;
 
+                return Content($"USERID = {userId}");
+
                 if (string.IsNullOrEmpty(userId))
                 {
                     return Content("ERROR: userId is NULL");
