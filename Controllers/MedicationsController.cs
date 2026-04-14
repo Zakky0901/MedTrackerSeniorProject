@@ -24,7 +24,7 @@ namespace MedTrackerScreensMVC.Controllers
 
             await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
 
-            // ✅ Filter medications by current user
+            // Filter medications by current user
             var meds = await _db.Medications
                 .Where(m => m.UserId == userId)
                 .OrderBy(m => m.Name)
@@ -32,7 +32,7 @@ namespace MedTrackerScreensMVC.Controllers
 
             var today = DateOnly.FromDateTime(DateTime.Today);
 
-            // ✅ Filter today's doses by current user via Medication
+            // Filter today's doses by current user via Medication
             var status = await _db.Doses
                 .Where(d => d.Date == today && d.Medication!.UserId == userId)
                 .GroupBy(d => d.MedicationId)
@@ -52,7 +52,7 @@ namespace MedTrackerScreensMVC.Controllers
             var userId = GetUserId();
             if (userId == null) return RedirectToAction("Login", "Account");
 
-            // ✅ Stamp the current user's ID before saving
+            // Stamp the current user's ID before saving
             m.UserId = userId;
 
             // Remove UserId from ModelState validation since we set it manually
@@ -82,7 +82,7 @@ namespace MedTrackerScreensMVC.Controllers
             var userId = GetUserId();
             if (userId == null) return RedirectToAction("Login", "Account");
 
-            // ✅ Preserve the UserId — never trust it from the form
+            // Preserve the UserId — never trust it from the form
             m.UserId = userId;
             ModelState.Remove(nameof(Medication.UserId));
 
