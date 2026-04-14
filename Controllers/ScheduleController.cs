@@ -21,17 +21,15 @@ namespace MedTrackerScreensMVC.Controllers
                              ?? User.FindFirst("sub")?.Value;
 
                 if (string.IsNullOrEmpty(userId))
-                {
                     return Content("ERROR: userId is NULL");
-                }
 
                 var target = date ?? DateOnly.FromDateTime(DateTime.UtcNow);
 
                 var doses = await _db.Doses
-                    .Include(d => d.UserId == userId)
+                    .Where(d => d.UserId == userId && d.Date == target)  // filter by user AND date
                     .ToListAsync();
 
-                return Content($"SUCCESS: Found {doses.Count} doses for user {userId}");
+                return Content($"SUCCESS: Found {doses.Count} doses for user {userId} on {target}");
             }
             catch (Exception ex)
             {
