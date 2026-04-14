@@ -4,6 +4,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<RootNamespace>MedTrackerScreensMVC</RootNamespace>
+		<UserSecretsId>987c99f1-83db-48f2-9620-2c89683cddfa</UserSecretsId>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.4.4" />

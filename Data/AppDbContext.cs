@@ -18,7 +18,7 @@ namespace MedTrackerScreensMVC.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Dose>()
-                .HasIndex(d => new { d.MedicationId, d.Date, d.Time })
+                .HasIndex(d => new { d.MedicationId, d.Date, d.Time, d.UserId })
                 .IsUnique();
             modelBuilder.Entity<AuthorizedUser>()
                 .HasOne(a => a.RelationshipType)

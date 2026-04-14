@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace MedTrackerScreensMVC.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260413221402_InitialCreate")]
+    [Migration("20260414161417_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -101,6 +101,10 @@ namespace MedTrackerScreensMVC.Migrations
                         .IsRequired()
                         .HasMaxLength(5)
                         .HasColumnType("character varying(5)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
