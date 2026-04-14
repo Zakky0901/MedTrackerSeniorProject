@@ -8,7 +8,7 @@ namespace MedTrackerScreensMVC.Services
     {
         public static async Task UpsertTodayFromMedications(AppDbContext db, string userId, CancellationToken ct)
         {
-            var today = DateOnly.FromDateTime(DateTime.Today);
+            var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
             var meds = await db.Medications
                 .Where(m => m.IsActive && m.UserId == userId)
@@ -19,7 +19,7 @@ namespace MedTrackerScreensMVC.Services
                 if (string.IsNullOrWhiteSpace(m.TimeOfDay)) continue;
 
                 bool exists = await db.Doses.AnyAsync(
-                    d => d.MedicationId == m.Id && d.Date == today && d.Time == m.TimeOfDay!, ct);
+                    d => d.MedicationId == m.Id && d.Date == today && d.Time == m.TimeOfDay! && d.UserId == userId, ct);
 
                 if (!exists)
                 {
@@ -28,7 +28,8 @@ namespace MedTrackerScreensMVC.Services
                         MedicationId = m.Id,
                         Date = today,
                         Time = m.TimeOfDay!,
-                        Taken = false
+                        Taken = false,
+                        UserId = userId
                     });
                 }
             }
