@@ -20,6 +20,6 @@ namespace MedTrackerScreensMVC.Controllers
             ViewData["Date"] = target; return View(doses);
         }        
         [HttpPost][ValidateAntiForgeryToken]
-        public async Task<IActionResult> MarkTaken(int id) { var d = await _db.Doses.FindAsync(id); if(d==null) return NotFound(); d.Taken = true; d.TakenAt = DateTime.Now; await _db.SaveChangesAsync(); return RedirectToAction(nameof(Index), new { date = d.Date }); }
+        public async Task<IActionResult> MarkTaken(int id) { var d = await _db.Doses.FindAsync(id); if(d==null) return NotFound(); d.Taken = true; d.TakenAt = DateTime.UtcNow; await _db.SaveChangesAsync(); return RedirectToAction(nameof(Index), new { date = d.Date }); }
     }
 }
