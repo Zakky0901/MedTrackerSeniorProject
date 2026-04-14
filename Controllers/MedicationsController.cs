@@ -118,7 +118,7 @@ namespace MedTrackerScreensMVC.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var userId = GetUserId();
-            // ✅ Ensure user can only view their own medications
+            // Ensure user can only view their own medications
             var m = await _db.Medications.FirstOrDefaultAsync(m => m.Id == id && m.UserId == userId);
             if (m == null) return NotFound();
             return View(m);
