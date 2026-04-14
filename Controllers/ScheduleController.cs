@@ -15,7 +15,13 @@ namespace MedTrackerScreensMVC.Controllers
         public ScheduleController(AppDbContext db) { _db = db; }
         public async Task<IActionResult> Index(DateOnly? date)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+             ?? User.FindFirst("sub")?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                throw new Exception("User ID is null");
+            }
+
             await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
             var target = date ?? DateOnly.FromDateTime(DateTime.Today);
             var doses = await _db.Doses.Include(d=>d.Medication).Where(d=>d.Date==target).Where(d=>d.UserId == userId).OrderBy(d=>d.Time).ToListAsync();

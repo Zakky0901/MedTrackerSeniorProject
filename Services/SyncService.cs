@@ -4,10 +4,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MedTrackerScreensMVC.Services
 {
-    public static class SyncService
+   public static class SyncService
     {
         public static async Task UpsertTodayFromMedications(AppDbContext db, string userId, CancellationToken ct)
         {
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return; // prevent crash
+            }
+
             var today = DateOnly.FromDateTime(DateTime.UtcNow);
 
             var meds = await db.Medications
