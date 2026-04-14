@@ -33,8 +33,6 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     .UseSnakeCaseNamingConvention();
 });
 
-
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
