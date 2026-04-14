@@ -26,6 +26,7 @@ namespace MedTrackerScreensMVC.Controllers
 
             // Filter medications by current user
             var meds = await _db.Medications
+                .Where(m => m.UserId == userId)
                 .OrderBy(m => m.Name)
                 .ToListAsync();
 
