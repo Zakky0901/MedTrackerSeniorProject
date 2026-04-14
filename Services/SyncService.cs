@@ -11,7 +11,7 @@ namespace MedTrackerScreensMVC.Services
             var today = DateOnly.FromDateTime(DateTime.Today);
 
             var meds = await db.Medications
-                .Where(m => m.IsActive && m.UserId == userId)
+                .Where(m => m.IsActive)
                 .ToListAsync(ct);
 
             foreach (var m in meds)

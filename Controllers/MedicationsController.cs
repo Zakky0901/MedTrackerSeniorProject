@@ -22,11 +22,10 @@ namespace MedTrackerScreensMVC.Controllers
             var userId = GetUserId();
             if (userId == null) return RedirectToAction("Login", "Account");
 
-            await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
+           // await SyncService.UpsertTodayFromMedications(_db, userId, HttpContext.RequestAborted);
 
             // Filter medications by current user
             var meds = await _db.Medications
-                .Where(m => m.UserId == userId)
                 .OrderBy(m => m.Name)
                 .ToListAsync();
 
