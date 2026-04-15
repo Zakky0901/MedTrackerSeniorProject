@@ -1,10 +1,18 @@
 @model MedTrackerScreensMVC.Models.AuthorizedUser
 <h2 class="mb-3">Add User</h2>
 <form method="post">
-<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-<div class="mb-3"><label class="form-label">Full name</label><input asp-for="FullName" class="form-control" /></div>
-    <select> asp-for="RelationshipTypeId" <label class="form-label">Relationship Type</label> class="form-select" asp-items="@(ViewData["Relationships"] as SelectList)"></select> 
-    <div class="col-md-6 mb-3"><label class="form-label">Email</label><input asp-for="Email" class="form-control" /></div>
-  <div class="col-md-6 mb-3"><label class="form-label">Phone</label><input asp-for="Phone" class="form-control" /></div>
-</div>
-<div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Save</button><a href="/AuthorizedUsers" class="btn btn-outline-secondary">Cancel</a></div></form>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-3"><label class="form-label">Full Name</label><input asp-for="FullName" class="form-control" /></div>
+    <div class="mb-3">
+        <label class="form-label">Relationship Type</label>
+        <select asp-for="RelationshipTypeId" class="form-select" asp-items="@(ViewData["Relationships"] as SelectList)">
+            <option value="">-- Select Relationship --</option>
+        </select>
+        <span asp-validation-for="RelationshipTypeId" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3"><label class="form-label">Email</label><input asp-for="Email" class="form-control" /></div>
+        <div class="col-md-6 mb-3"><label class="form-label">Phone</label><input asp-for="Phone" class="form-control" /></div>
+    </div>
+    <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Save</button><a href="/AuthorizedUsers" class="btn btn-outline-secondary">Cancel</a></div>
+</form>
