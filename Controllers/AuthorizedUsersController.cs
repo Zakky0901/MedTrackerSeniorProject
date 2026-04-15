@@ -21,6 +21,7 @@ namespace MedTrackerScreensMVC.Controllers
             var userId = GetUserId();
             return View(await _db.AuthorizedUsers
                 .Include(a => a.RelationshipType)
+                .Where(a => a.UserId == userId)
                 .OrderBy(a => a.FullName)
                 .ToListAsync());
         }
@@ -28,9 +29,7 @@ namespace MedTrackerScreensMVC.Controllers
         public IActionResult Create()
         {
             var conn = _db.Database.GetConnectionString();
-            Console.WriteLine($"Connection: {conn}");
             var relationships = _db.RelationshipTypes.ToList();
-            Console.WriteLine($"Relationship count: {relationships.Count}");
             ViewData["Relationships"] = new SelectList(relationships, "Id", "Name");
             return View(new AuthorizedUser());
         }
@@ -40,17 +39,18 @@ namespace MedTrackerScreensMVC.Controllers
         public async Task<IActionResult> Create(AuthorizedUser u)
         {
             var userId = GetUserId();
+            u.UserId = userId!;
+            ModelState.Remove(nameof(AuthorizedUser.UserId));
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Relationships = _db.RelationshipTypes.OrderBy(r => r.Name).ToList();
+                ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
                 return View(u);
             }
             _db.Add(u);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         public async Task<IActionResult> Edit(int id)
         {
             var u = await _db.AuthorizedUsers.FirstOrDefaultAsync(a => a.Id == id);
