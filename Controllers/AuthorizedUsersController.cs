@@ -27,10 +27,9 @@ namespace MedTrackerScreensMVC.Controllers
 
         public IActionResult Create()
         {
-            var relationships = _db.RelationshipTypes
-                .FromSqlRaw("SELECT * FROM public.\"RelationshipTypes\"")
-                .OrderBy(r => r.Name)
-                .ToList();
+            var conn = _db.Database.GetConnectionString();
+            Console.WriteLine($"Connection: {conn}");
+            var relationships = _db.RelationshipTypes.ToList();
             Console.WriteLine($"Relationship count: {relationships.Count}");
             ViewData["Relationships"] = new SelectList(relationships, "Id", "Name");
             return View(new AuthorizedUser());
