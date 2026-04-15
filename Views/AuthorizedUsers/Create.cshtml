@@ -3,7 +3,7 @@
 <form method="post">
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <div class="mb-3"><label class="form-label">Full name</label><input asp-for="FullName" class="form-control" /></div>
-    <select asp-for="RelationshipTypeId" <label class="form-label">Relationship Type</label> class="form-select" asp-items="@(ViewData["Relationships"] as SelectList)"></select> 
+    <select> asp-for="RelationshipTypeId" <label class="form-label">Relationship Type</label> class="form-select" asp-items="@(ViewData["Relationships"] as SelectList)"></select> 
     <div class="col-md-6 mb-3"><label class="form-label">Email</label><input asp-for="Email" class="form-control" /></div>
   <div class="col-md-6 mb-3"><label class="form-label">Phone</label><input asp-for="Phone" class="form-control" /></div>
 </div>
