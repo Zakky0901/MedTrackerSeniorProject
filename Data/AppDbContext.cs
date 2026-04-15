@@ -17,9 +17,6 @@ namespace MedTrackerScreensMVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<AuthorizedUser>()
-                .Property(a => a.UserId)
-                .HasColumnName("UserId");
             modelBuilder.Entity<Dose>()
                 .HasIndex(d => new { d.MedicationId, d.Date, d.Time})  
                 .IsUnique();
