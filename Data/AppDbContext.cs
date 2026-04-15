@@ -1,4 +1,3 @@
-
 using Microsoft.EntityFrameworkCore;
 using MedTrackerScreensMVC.Models;
 
@@ -7,6 +6,7 @@ namespace MedTrackerScreensMVC.Data
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
         public DbSet<Medication> Medications => Set<Medication>();
         public DbSet<Dose> Doses => Set<Dose>();
         public DbSet<AuthorizedUser> AuthorizedUsers => Set<AuthorizedUser>();
@@ -17,13 +17,23 @@ namespace MedTrackerScreensMVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Medication>().ToTable("Medications");
+            modelBuilder.Entity<Dose>().ToTable("Doses");
+            modelBuilder.Entity<AuthorizedUser>().ToTable("AuthorizedUsers");
+            modelBuilder.Entity<RelationshipType>().ToTable("RelationshipTypes");
+            modelBuilder.Entity<BloodType>().ToTable("BloodTypes");
+            modelBuilder.Entity<EmergencyCard>().ToTable("EmergencyCards");
+
             modelBuilder.Entity<Dose>()
-                .HasIndex(d => new { d.MedicationId, d.Date, d.Time})  
+                .HasIndex(d => new { d.MedicationId, d.Date, d.Time })
                 .IsUnique();
+
             modelBuilder.Entity<AuthorizedUser>()
                 .HasOne(a => a.RelationshipType)
                 .WithMany()
                 .HasForeignKey(a => a.RelationshipTypeId);
+
             modelBuilder.Entity<EmergencyCard>()
                 .HasOne(e => e.BloodType)
                 .WithMany()
