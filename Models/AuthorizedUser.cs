@@ -7,6 +7,8 @@ namespace MedTrackerScreensMVC.Models
     {
         public int Id { get; set; }
         [Required, StringLength(120)] public string FullName { get; set; } = string.Empty;
+
+        [Range(1, int.MaxValue, ErrorMessage = "Please select a relationship type.")]
         public int RelationshipTypeId { get; set; }
         public RelationshipType? RelationshipType { get; set; }
         [StringLength(120)] public string? Email { get; set; }
