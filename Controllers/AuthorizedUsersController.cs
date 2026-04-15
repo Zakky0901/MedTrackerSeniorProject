@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using MedTrackerScreensMVC.Data;
 using MedTrackerScreensMVC.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace MedTrackerScreensMVC.Controllers
@@ -23,12 +24,13 @@ namespace MedTrackerScreensMVC.Controllers
                 .OrderBy(a => a.FullName)
                 .ToListAsync());
         }
-
+    
         public IActionResult Create()
         {
-            ViewBag.Relationships = _db.RelationshipTypes.OrderBy(r => r.Name).ToList();
+            ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
             return View(new AuthorizedUser());
         }
+        
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AuthorizedUser u)
@@ -47,10 +49,9 @@ namespace MedTrackerScreensMVC.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var userId = GetUserId();
             var u = await _db.AuthorizedUsers.FirstOrDefaultAsync(a => a.Id == id);
             if (u == null) return NotFound();
-            ViewBag.Relationships = _db.RelationshipTypes.OrderBy(r => r.Name).ToList();
+            ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
             return View(u);
         }
 
@@ -58,18 +59,15 @@ namespace MedTrackerScreensMVC.Controllers
         public async Task<IActionResult> Edit(int id, AuthorizedUser u)
         {
             if (id != u.Id) return BadRequest();
-            var userId = GetUserId();
-
             if (!ModelState.IsValid)
             {
-                ViewBag.Relationships = _db.RelationshipTypes.OrderBy(r => r.Name).ToList();
+                ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
                 return View(u);
             }
             _db.Update(u);
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
         public async Task<IActionResult> Delete(int id)
         {
             var userId = GetUserId();
