@@ -24,13 +24,15 @@ namespace MedTrackerScreensMVC.Controllers
                 .OrderBy(a => a.FullName)
                 .ToListAsync());
         }
-    
+
         public IActionResult Create()
         {
-            ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
+            var relationships = _db.RelationshipTypes.OrderBy(r => r.Name).ToList();
+            Console.WriteLine($"Relationship count: {relationships.Count}");
+            ViewData["Relationships"] = new SelectList(relationships, "Id", "Name");
             return View(new AuthorizedUser());
         }
-        
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(AuthorizedUser u)
