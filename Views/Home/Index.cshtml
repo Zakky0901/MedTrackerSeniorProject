@@ -1,53 +1,12 @@
-@model IEnumerable<MedTrackerScreensMVC.Models.Dose>
-@{
-    ViewData["Title"] = "Dashboard";
-    var planned = (int)(ViewData["PlannedToday"] ?? 0);
-    var taken = (int)(ViewData["TakenToday"] ?? 0);
-    var active = (int)(ViewData["ActiveMedications"] ?? 0);
-}
 
+@{ ViewData["Title"] = "Dashboard"; var planned = (int)(ViewData["PlannedToday"] ?? 0); var taken = (int)(ViewData["TakenToday"] ?? 0); var active = (int)(ViewData["ActiveMedications"] ?? 0);} 
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2 class="m-0">Welcome back!</h2>
-    <a href="/Schedule" class="btn btn-outline-primary">View Full Schedule</a>
+  <h2 class="m-0">Welcome back!</h2>
+  <a href="/Schedule" class="btn btn-outline-primary">Print Schedule</a>
 </div>
-
-<div class="row g-3 mb-4">
-    <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Active Medications</div><div class="fs-3 fw-bold">@active</div></div></div></div>
-    <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Today's Doses</div><div class="fs-3 fw-bold">@planned</div></div></div></div>
-    <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Taken</div><div class="fs-3 fw-bold text-success">@taken</div></div></div></div>
-</div>
-
-<div class="card">
-    <div class="card-header fw-semibold">Today's Medications</div>
-    <div class="card-body p-0">
-        @if (!Model.Any())
-        {
-            <div class="p-3 text-muted">No medications scheduled for today.</div>
-        }
-        else
-        {
-            <ul class="list-group list-group-flush">
-                @foreach (var d in Model)
-                {
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <div>
-                            <div class="fw-semibold">@d.Medication?.Name</div>
-                            <div class="text-muted small">@d.Medication?.DosageDisplay</div>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="text-muted small">@d.Time</span>
-                            @if (d.Taken)
-                            {
-                                <span class="badge bg-success">Taken</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-warning text-dark">Due</span>
-                            }
-                        </div>
-                    </li>
-                }
-            </ul>
-        }
-    </div>
+<div class="card mb-3"><div class="card-header">Today's Schedule</div><div class="card-body">Open the Today page to view and mark doses.</div></div>
+<div class="row g-3">
+  <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Active Medications</div><div class="fs-3 fw-bold">@active</div></div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Today's Doses</div><div class="fs-3 fw-bold">@planned</div></div></div></div>
+  <div class="col-md-4"><div class="card"><div class="card-body"><div class="text-muted">Taken</div><div class="fs-3 fw-bold text-success">@taken</div></div></div></div>
 </div>
