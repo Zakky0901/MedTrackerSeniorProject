@@ -20,7 +20,6 @@ namespace MedTrackerScreensMVC.Controllers
             var userId = GetUserId();
             return View(await _db.AuthorizedUsers
                 .Include(a => a.RelationshipType)
-                .Where(a => a.UserId == userId)
                 .OrderBy(a => a.FullName)
                 .ToListAsync());
         }
