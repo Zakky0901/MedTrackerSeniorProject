@@ -51,6 +51,7 @@ namespace MedTrackerScreensMVC.Controllers
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        [HttpGet, ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id)
         {
             var u = await _db.AuthorizedUsers.FirstOrDefaultAsync(a => a.Id == id);
