@@ -64,12 +64,25 @@ namespace MedTrackerScreensMVC.Controllers
         public async Task<IActionResult> Edit(int id, AuthorizedUser u)
         {
             if (id != u.Id) return BadRequest();
+
+            // Remove server-side fields from validation since they aren't in the form
+            ModelState.Remove("UserId");
+            ModelState.Remove("AddedOn");
+
             if (!ModelState.IsValid)
             {
                 ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
                 return View(u);
             }
-            _db.Update(u);
+
+            var existing = await _db.AuthorizedUsers.FindAsync(id);
+            if (existing == null) return NotFound();
+
+            existing.FullName = u.FullName;
+            existing.RelationshipTypeId = u.RelationshipTypeId;
+            existing.Email = u.Email;
+            existing.Phone = u.Phone;
+
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
