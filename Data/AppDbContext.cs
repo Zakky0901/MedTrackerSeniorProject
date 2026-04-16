@@ -1,5 +1,4 @@
 using MedTrackerScreensMVC.Models;
-using Microsoft.AspNetCore.DataProtection.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 
 namespace MedTrackerScreensMVC.Data
@@ -7,7 +6,6 @@ namespace MedTrackerScreensMVC.Data
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; } = null!;
         public DbSet<Medication> Medications => Set<Medication>();
         public DbSet<Dose> Doses => Set<Dose>();
         public DbSet<AuthorizedUser> AuthorizedUsers => Set<AuthorizedUser>();
