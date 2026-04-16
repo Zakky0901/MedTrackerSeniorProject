@@ -49,11 +49,16 @@ namespace MedTrackerScreensMVC.Migrations
                     b.Property<int>("RelationshipTypeId")
                         .HasColumnType("integer");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("UserId");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RelationshipTypeId");
 
-                    b.ToTable("AuthorizedUsers");
+                    b.ToTable("AuthorizedUsers", (string)null);
                 });
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.BloodType", b =>
@@ -71,7 +76,7 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BloodTypes");
+                    b.ToTable("BloodTypes", (string)null);
                 });
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.Dose", b =>
@@ -99,17 +104,12 @@ namespace MedTrackerScreensMVC.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("character varying(5)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("UserId");
-
                     b.HasKey("Id");
 
                     b.HasIndex("MedicationId", "Date", "Time")
                         .IsUnique();
 
-                    b.ToTable("Doses");
+                    b.ToTable("Doses", (string)null);
                 });
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.EmergencyCard", b =>
@@ -142,7 +142,7 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.HasIndex("BloodTypeId");
 
-                    b.ToTable("EmergencyCards");
+                    b.ToTable("EmergencyCards", (string)null);
                 });
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.Medication", b =>
@@ -188,7 +188,7 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Medications");
+                    b.ToTable("Medications", (string)null);
                 });
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.RelationshipType", b =>
@@ -206,7 +206,7 @@ namespace MedTrackerScreensMVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RelationshipTypes");
+                    b.ToTable("RelationshipTypes", (string)null);
                 });
 
             modelBuilder.Entity("MedTrackerScreensMVC.Models.AuthorizedUser", b =>
