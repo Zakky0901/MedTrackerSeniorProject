@@ -60,7 +60,7 @@ namespace MedTrackerScreensMVC.Controllers
             return View(u);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> Edit(int id, AuthorizedUser u)
         {
             if (id != u.Id) return BadRequest();
