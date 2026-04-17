@@ -1,18 +1,107 @@
-@model MedTrackerScreensMVC.Models.AuthorizedUser
-<h2 class="mb-3">Add Representative</h2>
+@model MedTrackerScreensMVC.Models.Medication
+<h2 class="mb-3">Add Medication</h2>
+
+<!-- Medication name type-ahead -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/awesomplete@1.1.5/awesomplete.css" />
+<script src="https://cdn.jsdelivr.net/npm/awesomplete@1.1.5/awesomplete.min.js"></script>
+
 <form method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="mb-3"><label class="form-label">Full Name</label><input asp-for="FullName" class="form-control" /></div>
+
     <div class="mb-3">
-        <label class="form-label">Relationship Type</label>
-        <select asp-for="RelationshipTypeId" class="form-select" asp-items="@(ViewData["Relationships"] as SelectList)">
-            <option value="">-- Select Relationship --</option>
-        </select>
-        <span asp-validation-for="RelationshipTypeId" class="text-danger"></span>
+        <label class="form-label">Name</label>
+        <input asp-for="Name" class="form-control" id="medName" autocomplete="off"
+               list="" placeholder="Search medication..." />
     </div>
+
     <div class="row">
-        <div class="col-md-6 mb-3"><label class="form-label">Email</label><input asp-for="Email" class="form-control" /></div>
-        <div class="col-md-6 mb-3"><label class="form-label">Phone</label><input asp-for="Phone" class="form-control" /></div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Dosage</label>
+            <input asp-for="DosageDisplay" class="form-control" placeholder="e.g., 50mg" />
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Frequency</label>
+            <select asp-for="Frequency" class="form-select">
+                <option value="">-- Select --</option>
+                <option value="Daily">Daily</option>
+                <option value="Twice Daily">Twice Daily</option>
+                <option value="3x Daily">3x Daily</option>
+                <option value="4x Daily">4x Daily</option>
+                <option value="Every 6 hrs">Every 6 hrs</option>
+                <option value="Every 8 hrs">Every 8 hrs</option>
+                <option value="Every 12 hrs">Every 12 hrs</option>
+                <option value="Weekly">Weekly</option>
+                <option value="Biweekly">Biweekly</option>
+                <option value="Monthly">Monthly</option>
+                <option value="As needed">As needed</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label">Time of Day</label>
+            <select asp-for="TimeOfDay" class="form-select">
+                <option value="">-- Select --</option>
+                <option value="06:00">6:00 AM – Early Morning</option>
+                <option value="08:00">8:00 AM – Morning</option>
+                <option value="10:00">10:00 AM – Mid Morning</option>
+                <option value="12:00">12:00 PM – Noon</option>
+                <option value="14:00">2:00 PM – Afternoon</option>
+                <option value="16:00">4:00 PM – Late Afternoon</option>
+                <option value="18:00">6:00 PM – Evening</option>
+                <option value="20:00">8:00 PM – Night</option>
+                <option value="22:00">10:00 PM – Bedtime</option>
+            </select>
+        </div>
     </div>
-    <div class="d-flex gap-2"><button class="btn btn-primary" type="submit">Save</button><a href="/AuthorizedUsers" class="btn btn-outline-secondary">Cancel</a></div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Pills remaining</label>
+            <input asp-for="PillsRemaining" class="form-control" />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Refill date</label>
+            <input asp-for="RefillDate" type="date" class="form-control" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="form-check mb-3">
+        <input class="form-check-input" asp-for="IsActive" />
+        <label class="form-check-label" asp-for="IsActive">Active</label>
+    </div>
+
+    <div class="d-flex gap-2">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <a href="/Medications" class="btn btn-outline-secondary">Cancel</a>
+    </div>
 </form>
+
+<script>
+    const medications = [
+        "Acetaminophen","Adderall","Albuterol","Amlodipine","Amoxicillin",
+        "Atenolol","Atorvastatin","Azithromycin","Benazepril","Bupropion",
+        "Buspirone","Carvedilol","Cetirizine","Ciprofloxacin","Citalopram",
+        "Clonazepam","Clonidine","Clopidogrel","Cyclobenzaprine","Doxycycline",
+        "Duloxetine","Escitalopram","Famotidine","Fluoxetine","Furosemide",
+        "Gabapentin","Hydrochlorothiazide","Hydrocodone","Hydroxyzine","Ibuprofen",
+        "Insulin Glargine","Lamotrigine","Levothyroxine","Lisinopril","Loratadine",
+        "Lorazepam","Losartan","Meloxicam","Metformin","Methocarbamol",
+        "Methotrexate","Metoprolol","Metronidazole","Mirtazapine","Montelukast",
+        "Naproxen","Omeprazole","Ondansetron","Oxycodone","Pantoprazole",
+        "Paroxetine","Prednisone","Propranolol","Quetiapine","Ranitidine",
+        "Rosuvastatin","Sertraline","Simvastatin","Spironolactone","Sumatriptan",
+        "Tamsulosin","Topiramate","Tramadol","Trazodone","Venlafaxine",
+        "Warfarin","Zolpidem","Zoloft"
+    ];
+
+    new Awesomplete(document.getElementById("medName"), {
+        list: medications,
+        minChars: 1,
+        maxItems: 8,
+        autoFirst: true
+    });
+</script>
