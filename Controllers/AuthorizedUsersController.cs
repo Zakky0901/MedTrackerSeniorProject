@@ -56,6 +56,13 @@ namespace MedTrackerScreensMVC.Controllers
         {
             var u = await _db.AuthorizedUsers.FirstOrDefaultAsync(a => a.Id == id);
             if (u == null) return NotFound();
+
+            ViewData["Relationships"] = new SelectList(
+        _db.RelationshipTypes.OrderBy(r => r.Name).ToList(),
+        "Id",
+        "Name",
+        u.RelationshipTypeId);
+
             return View(u);
         }
 
