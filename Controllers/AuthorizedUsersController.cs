@@ -63,12 +63,26 @@ namespace MedTrackerScreensMVC.Controllers
         public async Task<IActionResult> Edit(int id, AuthorizedUser u)
         {
             if (id != u.Id) return BadRequest();
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("AddedOn");
+            ModelState.Remove("RelationshipType");
+
             if (!ModelState.IsValid)
             {
                 ViewData["Relationships"] = new SelectList(_db.RelationshipTypes.OrderBy(r => r.Name).ToList(), "Id", "Name");
                 return View(u);
             }
-            _db.Update(u);
+
+            var existing = await _db.AuthorizedUsers.FindAsync(id);
+            if (existing == null) return NotFound();
+
+            // Only update editable fields, preserve UserId and AddedOn
+            existing.FullName = u.FullName;
+            existing.RelationshipTypeId = u.RelationshipTypeId;
+            existing.Email = u.Email;
+            existing.Phone = u.Phone;
+
             await _db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
