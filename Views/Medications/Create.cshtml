@@ -9,8 +9,11 @@
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
     <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input asp-for="Name" class="form-control" id="medName" autocomplete="off" placeholder="Search medication..." />
+        <label class="form-label d-block">Name</label>
+        <div class="w-100">
+            <input asp-for="Name" class="form-control" id="medName"
+                   autocomplete="off" placeholder="Search medication..." />
+        </div>
     </div>
 
     <div class="row">
